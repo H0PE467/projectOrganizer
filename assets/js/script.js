@@ -1,31 +1,38 @@
+//Header Elements
 var timeDisplay = document.querySelector(".time")
 var dateDisplay = document.querySelector(".date")
 var projectForm = document.querySelector(".infoForm")
 
-var tableProjects = document.querySelector(".projectsTableBody")
+
+// Form Elements
 var projectName = document.querySelector(".nameInput")
 var projectType = document.querySelector(".projectTypeInput")
 var wage = document.querySelector(".wageInput")
 var dueDate = document.querySelector(".dueDateInput")
 
+//Table Elements
+var tableProjects = document.querySelector(".projectsTableBody")
 
 
+//Sets current time and day on header
 dateDisplay.textContent = moment().format("[Today is] Do MMM YYYY");
 timeDisplay.textContent = moment().format("[The Time is]  h:mm:ss a");
 
-
+//Sets current time 
 function setTime() {
     timeDisplay.textContent = moment().format("[The time is]  h:mm:ss a");
 }
 
+//Deletes targets row in the table 
 function deleteRow(event) {
     event.target.parentElement.remove()
 }
 
+// Creates a new row based on forms info
 function addRow(event) {
-
     event.preventDefault();
 
+    //creating elements
     var newRow = document.createElement("tr")
 
     var newName = document.createElement("td")
@@ -49,7 +56,7 @@ function addRow(event) {
     newDaysUntil.textContent = daysTill;
 
     var newEstimatedTotal = document.createElement("td")
-    newEstimatedTotal.textContent = parseInt(daysTill) * parseInt(wage.value) * 8;
+    newEstimatedTotal.textContent = "$" + parseInt(daysTill) * parseInt(wage.value) * 8;
     wage.value = "";
     dueDate.value = "";
 
@@ -58,6 +65,7 @@ function addRow(event) {
     newDeleteBtn.setAttribute("style","cursor:pointer")
     newDeleteBtn.addEventListener("click",deleteRow)
 
+    //Appending elements to themselves
     newRow.appendChild(newName)
     newRow.appendChild(newType)
     newRow.appendChild(newWage)
@@ -69,8 +77,10 @@ function addRow(event) {
 
     tableProjects.appendChild(newRow)
 
+    //Closes Modal
     $('.formModal').modal('hide');
 }
+
 
 projectForm.addEventListener("submit",addRow)
 
